@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Topic;
+use App\Block;
 
 class TopicController extends Controller
 {
@@ -25,7 +27,8 @@ class TopicController extends Controller
      */
     public function create()
     {
-        //
+        $topic = new Topic;
+        return view('topic.create', ['topic'=>$topic, 'page'=>'']);
     }
 
     /**
@@ -36,7 +39,14 @@ class TopicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $topic = new Topic;
+         $topic->topicname=$request->topicname;
+         if(!$topic->save())
+         {
+            $errors = $topic->getErrors();
+            return redirect()->action('TopicController@create')->with('errors',$errors)->withInput();
+         }
+         return redirect()->action('TopicController@create')->with('message', 'Новый топик '.$topic->topicname.' создан с айди = '.$topic->id.'!');
     }
 
     /**
