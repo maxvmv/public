@@ -17,9 +17,9 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="#">LaravelSiteName</a>
     </div>
-    <ul class="nav navbar-nav">
-      <li><a href="{{url('home')}}">Home</a></li>
-      <li><a href="{{url('addcountry')}}">Add Country</a></li>
+    <ul class="nav ">
+      <li><a href="{{url('topic')}}">Home</a></li>
+      <li><a href="{{url('topic/create')}}">topic create</a></li>
       <li><a href="#">Page 2</a></li> 
       <li><a href="#">Page 3</a></li> 
     </ul>

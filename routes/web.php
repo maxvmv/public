@@ -14,6 +14,4 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/home', "TestController@index");
-Route::get('/addcountry', "TestController@addcountry");
-Route::post('/addcountry', "TestController@storecountry");
+Route::resource('topic', 'TopicController');
