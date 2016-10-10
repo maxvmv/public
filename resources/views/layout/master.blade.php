@@ -19,8 +19,8 @@
       </div>
       <ul class="nav navbar-nav">
         <li><a href="{{url('topic')}}">Home</a></li>
-        <li><a href="{{url('topic/create')}}">topic create</a></li>
-        <li><a href="#">Page 2</a></li> 
+        <li><a href="{{url('topic/create')}}">Добавить топик</a></li>
+        <li {{$page == 'AddBlock'? 'class=active':''}}><a href="{{url('block/create')}}">Добавить блок для топика</a></li> 
         <li><a href="#">Page 3</a></li> 
       </ul>
     </div>
