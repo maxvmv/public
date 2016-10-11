@@ -1,0 +1,202 @@
+не работает с PHP ниже версии 5.4 
+
+composer - добавляет модули в PHP
+
+будем работать с  Laravel 5.2 
+
+https://getcomposer.org/download/  - скачать композер.
+
+Открыть консоль Openserver  и пишем туда команду 
+composer global require "laravel/intaller" 
+
+******************************Установить прокси 
+SET HTTP_PROXY=http://07422:tudige46@10.3.0.9:3128
+
+******************************Создание проекта
+composer create-project laravel/laravel laratest --prefer-dir
+
+
+****************************** 
+app в этой папке  менять редко что надо
+bootstrap
+
+
+/app/ будут лежать модели
+/app/http/ будут лежать контроллеры
+**************************
+1) у всех представлений двойное расширение.
+	abc.blade.php
+2) обращаться к представлению без расширения
+	abc
+3) Если у котроллера есть несколько view, для него в папке resourses/views надо создать папку с названием контроллера без controller (контроллер "TestController" -> gfgrf c view-ками "Test")
+
+************************** Подключение файлов
+asset ссылается на папку public 
+
+<link type="text/css" rel="stylesheet" href="{{asset('bootstrap/bootstrap.min')}}">
+<link type="text/javascript" rel="stylesheet" href="{{asset('js/jquery-3.0.0.js')}}">
+
+****************************
+Создает файл в котором программируется действия с БД
+php artisan make:migration create_tables
+
+***************************
+Запускает миграцию
+php artisan migrate
+
+Выполняет метод down(), и все что с ним прописано
+php artisan migrate:rollback
+**************************
+
+
+
+!!!! таблицы должны назвываться во множественном числе,  а модели в единственном числе
+
+
+php artisan model:Country
+php artisan model:City
+
+****************
+Добавляет модуль для работы с формами
+
+"require": {
+				// было
+        "php": ">=5.6.4",
+        "laravel/framework": "5.3.*",
+        // добавили
+        //класс для формы
+        "laravelcollective/html": "~5.0",
+        //класс для валидации
+        "esensi/model": "0.6.*"
+    },
+
+
+***********************************************
+gitbash
+
+
+cd "C:\Users\07422\Desktop\OpenServer\domains\larabook"
+
+/*создает локальный репозиторий*/
+git init
+
+/*Показывает содержимое проекта*/
+git status
+красный цвет - git  не следит за ними
+зеленый - следит
+
+/* добавление файла в гит	*/
+git add *.*
+/*пример*/
+git add composer json
+
+
+комит - мнгновенный снимок всей репозитории
+/*создает точку сохранения*/
+git commit -m "first commit"
+
+/* посмотреть последний коммит*/
+git log
+
+/* git  сохранит все изменения внесенные пользователем, и создаст коммит */
+git commit -a -m "second commit"
+
+
+****************************************************************************
+/*создаем контроллер*/
+php artisan make:controller --resource TopicController
+
+/**/
+Если создаем новые файлы, надо обновлять  командой git add *.*
+
+*****************************************************************************
+rest - передача состояния. позволяет через адрессную строку шифровать команды к приложению.
+
+
+****************************************** 
+Подключение к репозиторию
+/*настройка подлключения*/
+git config --global user.name "maxvmv"
+git config --global user.email "djvmv2012@gmail.com"
+git config --global http.proxy  07422:tudige46@10.3.0.9:3128
+
+/*показывает все гиты*/
+git remote -v
+
+/* подключаете удаленный репозиторий к локальнгому репозитору*/
+git remote add origin http://github.com/maxvmv/public.git
+
+/*Обновили для коммита все что есть*/
+git add *.*
+
+
+/* делаем коммит с версией 0*/
+git commit -a -m "version 0"
+
+/* делаем коммит с версией 0.1*/
+git commit -a -m "version 0.1"
+
+/*добавим новую папку в гит*/
+git add resources/views/topic *.*
+
+/*отправим коммитов на сервер*/
+git push origin master
+
+
+/////////////////////////////////////////////////////////////////////////
+дз 
+
+1)  
+Выполнить команды с папки проекта
+git config --global user.name "maxvmv"
+git config --global user.email 
+git remote add origin http://github.com/maxvmv/public.git
+
+git clone http://github.com/maxvmv/public.git
+
+*///////////////////////////////////////////////////////////////////////
+
+repositor1 -  имя папки в которой будет новый репозиторий с  github'а
+
+git clone http://github.com/maxvmv/public.git repositor1
+
+
+
+commit  84778a76e5e0ff752ef781de461a8a020dbaf013
+
+/*создаем новую ветку*/
+branch - это ветка
+git branch namebranch1 84778a76e5e0ff752ef781de461a8a020dbaf013
+
+
+/*переходим на неё*/
+git checkout namebranch1
+
+
+
+/* создает на ветке мастер  новый коммит*/
+git merge namebranch1 master
+
+/* удаление ветки*/
+git branch -d namebranch1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
