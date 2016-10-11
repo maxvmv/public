@@ -118,7 +118,7 @@ rest - передача состояния. позволяет через адр
 /*настройка подлключения*/
 git config --global user.name "maxvmv"
 git config --global user.email "djvmv2012@gmail.com"
-git config --global http.proxy  07422:tudige46@10.3.0.9:3128
+git config --global http.proxy  07422:rigame56@10.3.0.9:3128
 
 /*показывает все гиты*/
 git remote -v
