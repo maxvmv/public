@@ -1,14 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Topic;
 use App\Block;
-
-
 class BlockController extends Controller
 {
     /**
@@ -20,7 +15,6 @@ class BlockController extends Controller
     {
         //
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -28,14 +22,11 @@ class BlockController extends Controller
      */
     public function create()
     {
-        $block=new Block;
-        /**/
-        $topics = Topic::pluck('topicname','id');
-        return view('block.create', array('block'=>$block, 'topics'=>$topics, 'page'=>'AddBlock'));
-
-
+        $block = new Block;
+        $topics = Topic::pluck('topicname', 'id');
+        return view('block.create', ['block'=>$block, 'topics'=>$topics,
+            'page'=>'add Block']);
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -44,36 +35,35 @@ class BlockController extends Controller
      */
     public function store(Request $request)
     {
-        $fname=$request->file('imagepath');
-        if($fname != null)
-        {
-            /*фиксируем родное имя файла */
-            $originalname=$request->file('imagepath')->getClientOriginalName();
-            /*переносим файлик в указанное место. public_path - корневая папка нашего приложения*/
-            $request->file('imagepath')->move(public_path().'/images',$originalname);
-        } 
-
-        $block= new Block;
-        $block->title=$request->title;
-        $block->topicid=$request->topicid;
-        $block->content=$request->content;
-        if($fname != null)
-        {
-            $block->imagepath="/images/".$originalname;
+       $fname = $request->file('imagepath');
+       if($fname != null)
+       {
+        $originalname = $request->file('imagepath')->getClientOriginalName();
+        $request->file('imagepath')->move(public_path().'/images',$originalname );
+       }
+       $block = new Block;
+       $block->title=$request->title;
+       $block->topicid = $request->topicid;
+       $block->content = $request->content;
+       if($fname != null)
+       {
+        $block->imagepath="/images/".$originalname;
+       }
+       else
+       {
+        $block->imagepath ='';
+       }
+       if(!$block->save())
+       {
+        $errors = $block->getErrors();
+            return redirect()->
+            action('BlockController@create')->
+            with('errors',$errors)->withInput();
         }
-        else
-        {
-            $block->imagepath='';
-        }
-
-         if(!$block->save())
-         {
-            $errors = $block->getErrors();
-            return redirect()->action('BlockController@create')->with('errors',$errors)->withInput();
-         }
-           return redirect()->action('BlockController@create')->with('message', 'Новый блок  создан с айди = '.$block->id.'!');
+        return redirect()->
+        action('BlockController@create')->
+        with('message','New block with id '.$block->id.' has been added!');
     }
-
     /**
      * Display the specified resource.
      *
@@ -84,7 +74,6 @@ class BlockController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -93,9 +82,10 @@ class BlockController extends Controller
      */
     public function edit($id)
     {
-        //
+        $block = Block::find($id);
+        $topics = Topic::pluck('topicname', 'id');
+        return view('block.edit')->with('block',$block)->with('topics', $topics);
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -105,9 +95,18 @@ class BlockController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $block=Block::find($id);
+        $block->title=$request->title;
+        $block->topicid=$request->topicid;
+        $block->content=$request->content;
+        // if($request->imagepath !=null)
+        // {
+        //     $block->imagePath=$request->imagepath;
+        // }
+        $block->save();
+        // Session::flash('message','Обновлено!');
+        return redirect('topic');
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -116,6 +115,8 @@ class BlockController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $block=Block::find($id);
+        $block->delete();
+        return redirect('topic');
     }
 }

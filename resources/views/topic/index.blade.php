@@ -26,17 +26,34 @@
 	</div>
 	<div class="col-md-9">
 		@if($id !=0)
-			@foreach($blocks as $b)
-				<div>
+		@foreach($blocks as $b)
+		<div>
+			<div class="well">
+				<div class="row">
 					<h2>{{$b->title}}</h2>
-					@if($b->imagePath !='')
-						<a href="{{url($b->imagePath)}}" target="_blank" class="wrap-image">
-							<img src="{{asset($b->imagePath}}"  height = "150px" alt="img"/>
-						</a>
-					@endif
-					<pre>{{$b->content}}</pre>
+					{!! Form::model($b, array('route'=>array('block.update',$b->id), 'method'=>'PUT')) !!}
+					<a class ="btn btn-info btn-xs" href="{{url('block/'.$b->id.'/edit')}}">Редактировать</a>
+					<br>	
+					{!! Form::close() !!}<br>
+		 		
+					{!! Form::open(array('route'=>array('block.destroy',$b->id))) !!}
+
+					{!! Form::hidden('_method','DELETE') !!}
+
+					{!! Form::submit('Удалить', array('class'=>'btn')) !!}
+					
+				
+					{!! Form::close() !!}<br>
 				</div>
-			@endforeach
+				@if($b->imagePath !="")
+				<a href="{{url($b->imagePath)}}" target="_blank" class="wrap-image">
+					<img src="{{asset($b->imagePath)}}" class="img-thumbnail" alt="Cinque Terre" width="304" height="236"/>
+				</a>
+				@endif
+				<pre class="pre_text">{{$b->content}}</pre>
+			</div>
+		</div>
+		@endforeach
 		@endif
 	</div>
 </div>

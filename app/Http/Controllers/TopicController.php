@@ -13,9 +13,9 @@ class TopicController extends Controller
 
     public function index()
     {
-       $topics = Topic::all();
-       $id = 0;
-       return view('topic.index', ['page'=>'home','topics'=>$topics,'id'=>$id]);
+      $topics=Topic::all();
+        $id=0;
+        return view('topic.index',['page'=>'home','topics'=>$topics,'id'=>$id]);
     }
 
 
@@ -28,14 +28,14 @@ class TopicController extends Controller
 
     public function store(Request $request)
     {
-         $topic = new Topic;
-         $topic->topicname=$request->topicname;
-         if(!$topic->save())
-         {
-            $errors = $topic->getErrors();
-            return redirect()->action('TopicController@create')->with('errors',$errors)->withInput();
-         }
-         return redirect()->action('TopicController@create')->with('message', 'Новый топик '.$topic->topicname.' создан с айди = '.$topic->id.'!');
+          $topic=new Topic();
+       $topic->topicname=$request->topicname;
+       if(!$topic->save())
+       {
+        $errors=$topic->getErrors();
+        return redirect()->action('TopicController@create')->with('errors',$errors)->withInput();
+       }
+       return redirect()->action('TopicController@create')->with('message','Новая тема'.$topic->topicname.' добавлена с id='.$topic->id.'!');
     }
 
 
@@ -44,9 +44,9 @@ class TopicController extends Controller
 
     public function show($id)
     {
-        $blocks = Block::where('topicid', '=', $id)->get();
-        $topics = Topic::all();
-        return view('topic.index', ['page'=>'home','topics'=>$topics, 'id'=>$id, 'blocks'=>$blocks]);
+   $blocks=Block::where('topicid','=',$id)->get();
+        $topics=Topic::all();
+        return view('topic.index',['page'=>'home','topics'=>$topics,'id'=>$id,'blocks'=>$blocks]);
     }
 
 
@@ -70,9 +70,10 @@ class TopicController extends Controller
 
     public function search (Request $request)
     {
-        $search=$request->search;
+         $search=$request->search;
         $search='%'.$search.'%';
-        $topics = Topic::where('topicname','like', $search)->get();
-        return view('topic.index', ['page'=>'home', 'topics'=>$topics,'id'=>0]);
+        $topics=Topic::where('topicname','like',$search)->get();
+        return view('topic.index',['page'=>'home','topics'=>$topics,'id'=>0]);
+
     }
 }
